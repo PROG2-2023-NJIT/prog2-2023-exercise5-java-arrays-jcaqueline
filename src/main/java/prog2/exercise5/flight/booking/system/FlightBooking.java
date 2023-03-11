@@ -5,6 +5,8 @@ package prog2.exercise5.flight.booking.system;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Random;
+import java.util.Scanner;
+
 
 
 
@@ -34,7 +36,7 @@ public class FlightBooking {
     private static String[] passengerFullName = new String[3];
     private static String[] passengerGender = new String[3];
     private static int[] passengerAge = new int[3];
-    public static String ticketNumber;
+    public static String[] ticketNumber = new String[3];
     public static TripType tripType;
     public static Object getBookingClass;
     public static double price;
@@ -301,36 +303,9 @@ public class FlightBooking {
     FlightBooking.returnTicketPrice = departingTicketPrice;
        
     }
-    public String getTicketNumber(){
-        if(tripType.equals(TripType.ONE_WAY)&&bookingClass.equals(BookingClass.FIRST)){
-            x = "11F";
-        }
-        if(tripType.equals(TripType.ONE_WAY)&&bookingClass.equals(BookingClass.Business)){
-            x = "11B";
-        }
-        if(tripType.equals(TripType.ONE_WAY)&&bookingClass.equals(BookingClass.Economy)){
-            x = "11E";
-        }
-        if(tripType.equals(TripType.RETURN)&&bookingClass.equals(BookingClass.FIRST)){
-            x = "22F";
-        }
-        if(tripType.equals(TripType.RETURN)&&bookingClass.equals(BookingClass.Business)){
-            x = "22B";
-        }
-        if(tripType.equals(TripType.RETURN)&&bookingClass.equals(BookingClass.Economy)){
-            x = "22E";
-        }
-        if(tripSource.equals(TripSource.NANJING)&&tripDestination.equals(TripDestination.BEIJING)||tripSource.equals(TripSource.BEIJING)&&tripDestination.equals(TripDestination.Nanjing)||tripSource.equals(TripSource.Helsinki)&&tripDestination.equals(TripDestination.Oulu)||tripSource.equals(TripSource.Oulu)&&tripDestination.equals(TripDestination.Helsinki)){
-            y = "DOM";
-          }
-          if(tripSource.equals(TripSource.NANJING)&&tripDestination.equals(TripDestination.Helsinki)||tripSource.equals(TripSource.NANJING)&&tripDestination.equals(TripDestination.Oulu)||tripSource.equals(TripSource.BEIJING)&&tripDestination.equals(TripDestination.Helsinki)||tripSource.equals(TripSource.BEIJING)&&tripDestination.equals(TripDestination.Oulu)||tripSource.equals(TripSource.Helsinki)&&tripDestination.equals(TripDestination.BEIJING)||tripSource.equals(TripSource.Helsinki)&&tripDestination.equals(TripDestination.Nanjing)||tripSource.equals(TripSource.Oulu)&&tripDestination.equals(TripDestination.BEIJING)||tripSource.equals(TripSource.Oulu)&&tripDestination.equals(TripDestination.Nanjing)){
-             y = "INT";
-          }
-
-
-        String kk =creatTnumber(4);
-        FlightBooking.ticketNumber = x + kk + y ;
-        return FlightBooking.ticketNumber;
+    public String getTicketNumber(int a){
+        
+        return FlightBooking.ticketNumber[a];
     }
     public void setTicketNumber(int a){
         if(tripType.equals(TripType.ONE_WAY)&&bookingClass.equals(BookingClass.FIRST)){
@@ -360,7 +335,7 @@ public class FlightBooking {
 
 
         String kk =creatTnumber(4);
-        FlightBooking.ticketNumber = x + kk + y ;
+        FlightBooking.ticketNumber[a] = x + kk + y ;
     }
     
    
@@ -399,6 +374,154 @@ public class FlightBooking {
 		}
 		return codes;
 	}
+    public void reserveTickets(int size){
+        String[] Name = new String[size];
+        String[] Gender = new String[size];
+        int[] Age = new int[3];
+        Scanner input1 = new Scanner(System.in);
+        for(int a = 0;a<size;a++){
+        System.out.println("Give your full name:");
+        Name[a] = input1.nextLine();
+        setPassengerFullName(a, Name[a]);}
+        for(int a = 0;a<size;a++){
+        System.out.println("Give your Gender:");
+        Gender[a] = input1.nextLine();
+        setPassengerGender(a,Gender[a]);}
+        for(int a = 0;a<size;a++){
+        System.out.println("Give your age");
+        Age[a] = input1.nextInt();
+        setPassengerAge(a, Age[a]);
+        }
+        Scanner sc1 =new Scanner(System.in);
+        System.out.println("请选择想要的机票类型：");
+        System.out.println("1.	First");
+        System.out.println("2.	Business");
+        System.out.println("3.	Economy");
+        int m = sc1.nextInt();
+        Scanner sc2 = new Scanner(System.in);
+        System.out.println("请选择单向还是返回：");
+        System.out.println("1.	One way");
+        System.out.println("2.	Return");
+        int n = sc2.nextInt();
+        Scanner sc3 = new Scanner(System.in);
+        System.out.println("请选择想去的地方：");
+        System.out.println("1.	Nanjing");
+        System.out.println("2.	Beijing");
+        System.out.println("3.	Oulu");
+        System.out.println("4.	Helsinki");
+        int k = sc3.nextInt();
+        Scanner sc4 = new Scanner(System.in);
+        System.out.println("请选择想回去的地方：");
+        System.out.println("1.	Nanjing");
+        System.out.println("2.	Beijing");
+        System.out.println("3.	Oulu");
+        System.out.println("4.	Helsinki");
+        int h = sc4.nextInt();
+        String str ;
+        switch(m){
+        case 1:
+        str = "1";setBookingClass(str);getBookingClass();break;
+        case 2:
+        str = "2";setBookingClass(str);getBookingClass();break;
+        case 3:
+        str = "3";setBookingClass(str);getBookingClass();break;
+        }
+        
+        String str2;
+        switch(n){
+        case 1:
+        str2 = "1";setTripType(str2);getTripType();break;
+        case 2:
+        str2 = "2";setTripType(str2);getTripType();break;
+        }
+        setpo(n);
+        
+        String str3;
+        switch(k){
+        case 1:
+        str3 = "1";setTripSource(str3);setyy(str3);getTripSource();setSourceAirport(str3);getsourceAirport();break;
+        case 2:
+        str3 = "2";setTripSource(str3);setyy(str3);getTripSource();setSourceAirport(str3);getsourceAirport();break;
+        case 3:
+        str3 = "3";setTripSource(str3);setyy(str3);getTripSource();setSourceAirport(str3);getsourceAirport();break;
+        case 4:
+        str3 = "4";setTripSource(str3);setyy(str3);getTripSource();setSourceAirport(str3);getsourceAirport();break;
+        }
+       
+        
+        
+        String bh = getyy();
+        String str4;
+        switch(h){
+            case 1:
+            str4 = "1";setTripDestination(bh,str4);getTripDestination();setDestinationAirport(bh, str4);getDestinationAirport();break;
+            case 2:
+            str4 = "2";setTripDestination(bh,str4);getTripDestination();setDestinationAirport(bh, str4);getDestinationAirport();break;
+            case 3:
+            str4 = "3";setTripDestination(bh,str4);getTripDestination();setDestinationAirport(bh, str4);getDestinationAirport();break;
+            case 4:
+            str4 = "4";setTripDestination(bh,str4);getTripDestination();setDestinationAirport(bh, str4);getDestinationAirport();break;
+    
+            }
+        
+        Scanner aa = new Scanner(System.in);
+        System.out.println("请选择去的日期");
+        String Date = aa.nextLine();
+        LocalDate sskk3 = LocalDate.parse(Date);
+        setDepartureDate(sskk3);
+    
+        Scanner aa1 =new Scanner(System.in);
+        System.out.println("请选择返回的日期");
+        String Date1 = aa1.nextLine();
+        LocalDate sskk4 = LocalDate.parse(Date1);
+        setReturnDate(sskk4);
+        Scanner number = new Scanner(System.in);
+        System.out.println("请输入是几号乘客：");
+        int a = number.nextInt();
+        String passengerFullName = getPassengerFullName(a);
+        int passengerAge = getPassengerAge(a);
+        String passengerGender = getPassengerGender(a);
+        setTicketNumber(a);
+        String ticketNumber = getTicketNumber(a);
+        String company = getFlightCompany();
+        TripSource Source = getTripSource();
+        SourceAirport sourceAirport = getsourceAirport();
+        TripDestination destination = getTripDestination();
+        DestinationAirport destinationAirport = getDestinationAirport(); 
+        LocalDate departureDate = getDepartingDate();
+        LocalDate returningDate = getReturnDate();
+        setTotalPassengers(2,1);
+        int totalPassengers = getTotalPassengers();
+        setDepartingTicketPrice(2,1);
+       
+        setReturnTicketPrice();
+        
+       
+        setTotalTicketPrice();
+        
+        double totalTicketPrice = getTotalTicketPrice();
+       
+        System.out.println("Thank you for booking your flight with " + 
+          company + "\n" + "You reserved a total of " + size + "\n" +"Here are the trip details for " + a + " passenger");
+          System.out.println(
+          "Ticket Number: " + ticketNumber + "\n" + "passenger full name:" + passengerFullName + "\n" + "passenger age:" +
+          passengerAge + "\n" + "passenger gender:" + passengerGender + "\n" +
+          "From " + Source +"\n" + sourceAirport + "\n" + "To: " + destination + destinationAirport +"\n" +
+          "Date of departure: " + departureDate + "\n" +
+          "Date of return: " + returningDate + "\n" +
+          "Total passengers: " + totalPassengers + "\n" +
+          "Total ticket price in Euros: " + totalTicketPrice);
+        input1.close();
+        sc1.close();
+        sc2.close();
+        sc3.close();
+        sc4.close();
+        aa.close();
+        aa1.close();
+        number.close();
+        
+        
+    }
 
     
    
